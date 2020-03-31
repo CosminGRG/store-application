@@ -6,22 +6,47 @@ public class Store {
 	String description;
 	String name;
 	Stock stock;
-	ArrayList<CashRegister> carsRegisters = new ArrayList<CashRegister>();
+	ArrayList<CashRegister> cashRegisters = new ArrayList<CashRegister>();
 	ArrayList<Seller> sellers = new ArrayList<Seller>();
 	ArrayList<Administrator> administrators = new ArrayList<Administrator>();
 	
-	public void addNewCashRegister(CashRegister newCashRegister)
+	public Store(String _name, String _description, Stock _stock)
 	{
-		
+		name = _name;
+		description = _description;
+		stock = _stock;
 	}
 	
-	public void addNewSeller(Seller newSeller)
+	public void addNewCashRegister(String storeName, String fiscalIdentifier)
 	{
-		
+		CashRegister newCashRegister = new CashRegister(storeName, fiscalIdentifier);
+		cashRegisters.add(newCashRegister);
 	}
 	
-	public void addNewAdministrator(Administrator newAdministator)
+	public void addNewSeller(EmployeeInfo _employeeInfo, Stock _stock, CashRegister _cashRegister)
 	{
-		
+		Seller newSeller = new Seller(_employeeInfo, _stock, _cashRegister);
+		sellers.add(newSeller);
+	}
+	
+	public void addNewAdministrator(EmployeeInfo _employeeInfo, Stock _stock)
+	{
+		Administrator newAdministrator = new Administrator(_employeeInfo, _stock);
+		administrators.add(newAdministrator);
+	}
+	
+	public ArrayList<CashRegister> getCashRegisters()
+	{
+		return cashRegisters;
+	}
+	
+	public ArrayList<Administrator> getAdministators()
+	{
+		return administrators;
+	}
+	
+	public ArrayList<Seller> getSeller()
+	{
+		return sellers;
 	}
 }

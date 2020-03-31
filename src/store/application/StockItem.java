@@ -1,7 +1,7 @@
 package store.application;
 
 public class StockItem {
-	private Product product = null;
+	private Product product = new Product();
 	private int quantity;
 	
 	public StockItem(Product _product, int _quantity)
