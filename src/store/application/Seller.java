@@ -3,13 +3,16 @@ package store.application;
 import java.util.HashMap;
 
 public class Seller {
-	EmployeeInfo employeeInfo = null;
-	Stock stock = null;
+	@SuppressWarnings("unused")
+	private EmployeeInfo employeeInfo = null;
+	private Stock stock = null;
+	private CashRegister cashRegister = null;
 	
-	public Seller(EmployeeInfo _employeeInfo, Stock _stock)
+	public Seller(EmployeeInfo _employeeInfo, Stock _stock, CashRegister _cashRegister)
 	{
 		employeeInfo = _employeeInfo;
 		stock = _stock;
+		cashRegister = _cashRegister;
 	}
 	
 	public boolean checkProductStock(Product _product)
@@ -49,13 +52,15 @@ public class Seller {
 	 */
 	public void sellProduct(Product _product, int _quantity)
 	{
-		for (StockItem key : stock.getStockItems())
+		StockItem _stockItem = new StockItem(_product, _quantity);
+		stock.remove(_stockItem, _quantity);
+		cashRegister.startNewSell(_product, _quantity);
+		/*
+		 for (StockItem key : stock.getStockItems())
 		{
 			if (_product.getName().equalsIgnoreCase(key.getProduct().getName()))
 			{
-				/*
-				 * TODO: Add to receipt
-				 */
+				cashRegister.startNewSell(_product, _quantity);
 				if (key.getQuantity() > _quantity)
 				{
 					key.setQuantity(key.getQuantity() - _quantity);
@@ -67,19 +72,22 @@ public class Seller {
 				break;
 			}
 		}
+		*/
 	}
 
 	public void sellMultipleProducts(HashMap<Product, Integer> _productsToSell)
 	{
 		for (Product _productKey : _productsToSell.keySet())
 		{
+			StockItem _stockItem = new StockItem(_productKey, _productsToSell.get(_productKey));
+			stock.remove(_stockItem, _productsToSell.get(_productKey));
+			/*
 			for(StockItem _stockKey : stock.getStockItems())
 			{
 				if (_productKey.getName().equalsIgnoreCase(_stockKey.getProduct().getName()))
 				{
-					/*
-					 * TODO: Add to receipt
-					 */
+					
+					
 					if (_stockKey.getQuantity() > _productsToSell.get(_productKey))
 					{
 						_stockKey.setQuantity(_stockKey.getQuantity() - _productsToSell.get(_productKey));
@@ -91,6 +99,7 @@ public class Seller {
 					break;
 				}
 			}
+			*/
 		}
 	}
 }

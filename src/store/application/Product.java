@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 
 public class Product {
-	String name;
-	HashMap<String, String> characteristics = new HashMap<String, String>();
-	String description;
-	BigDecimal price = new BigDecimal(0);
+	private String name;
+	private HashMap<String, String> characteristics = new HashMap<String, String>();
+	private String description;
+	private BigDecimal price = new BigDecimal(0);
 	
 	public Product() { }
 	
@@ -23,6 +23,11 @@ public class Product {
 	public String getName()
 	{
 		return name;
+	}
+	
+	public BigDecimal getPrice()
+	{
+		return price;
 	}
 	
 	public void setPrice(BigDecimal _price)
