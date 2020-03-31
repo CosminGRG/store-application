@@ -19,61 +19,6 @@ public class Stock {
 		return stockItems;
 	}
 	
-	/*
-	public void add(StockItem _stockItem, int _quantity)
-	{
-		boolean ok = false;
-		for (StockItem key : stockItems.)
-		{
-			if (_stockItem.getProduct().getName().equalsIgnoreCase(key.getProduct().getName()))
-			{
-				stockItems.replace(key, stockItems.get(key) + _quantity);
-				ok = true;
-				break;
-			}
-		}
-		if (!ok)
-		{
-			stockItems.put(_stockItem, _quantity);
-		}
-	}
-	
-	public void remove(StockItem _stockItem, int _quantity)
-	{
-		for (StockItem key : stockItems.keySet())
-		{
-			if (_stockItem.getProduct().getName().equalsIgnoreCase(key.getProduct().getName()))
-			{
-				if (_quantity != 0)
-				{
-					stockItems.replace(key, stockItems.get(key), _quantity);
-				}
-				else
-				{
-					stockItems.remove(key);
-				}
-				break;
-			}
-		}
-	}
-	
-	public void remove(StockItem _stockItem)
-	{
-		remove(_stockItem, defaultOptionalRemovableQuantity);
-	}
-	
-	public void updateProductPrice(StockItem _stockItem, BigDecimal newPrice)
-	{
-		for (StockItem key : stockItems.keySet())
-		{
-			if (_stockItem.getProduct().getName().equalsIgnoreCase(key.getProduct().getName()))
-			{
-				key.getProduct().setPrice(newPrice);
-			}
-			break;
-		}
-	}
-	*/
 	public void add(StockItem _stockItem)
 	{
 		boolean ok = false;
@@ -133,5 +78,12 @@ public class Stock {
 			}
 			break;
 		}
+	}
+	
+	public void print()
+	{
+		for (int i = 0; i < stockItems.size(); i++) {
+		      System.out.println(stockItems.get(i).getProduct().getName() + " " + stockItems.get(i).getQuantity());
+		    }
 	}
 }

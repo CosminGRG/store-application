@@ -3,13 +3,18 @@ package store.application;
 import java.util.ArrayList;
 
 public class Administrator {
-	EmployeeInfo employeeInfo = null;
-	Stock stock = null;
+	private EmployeeInfo employeeInfo = null;
+	private Stock stock = null;
 	
 	public Administrator(EmployeeInfo _employeeInfo, Stock _stock)
 	{
 		employeeInfo = _employeeInfo;
 		stock = _stock;
+	}
+	
+	public Stock getStock()
+	{
+		return stock;
 	}
 	
 	public void addProductToStock(Product _product, int _quantity)
@@ -40,7 +45,7 @@ public class Administrator {
 	{
 		for (StockItem key : _productsToRemove)
 		{
-			stock.remove(key);
+			stock.remove(key, key.getQuantity());
 		}
 	}
 }

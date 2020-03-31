@@ -20,6 +20,13 @@ public class Product {
 		price = _price;
 	}
 	
+	public Product(String _name, String _description, BigDecimal _price)
+	{
+		name = _name;
+		description = _description;
+		price = _price;
+	}
+	
 	public String getName()
 	{
 		return name;
@@ -28,6 +35,16 @@ public class Product {
 	public BigDecimal getPrice()
 	{
 		return price;
+	}
+	
+	public String getDescription()
+	{
+		return description;
+	}
+	
+	public HashMap<String, String> getCharacteristics()
+	{
+		return characteristics;
 	}
 	
 	public void setPrice(BigDecimal _price)
