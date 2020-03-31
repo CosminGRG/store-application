@@ -1,2 +1,2 @@
 # store-application
-![.](https://imgur.com/YEan1j1)
+![.](https://i.imgur.com/YEan1j1.png)
