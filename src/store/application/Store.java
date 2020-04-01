@@ -21,18 +21,21 @@ public class Store {
 	{
 		CashRegister newCashRegister = new CashRegister(storeName, fiscalIdentifier);
 		cashRegisters.add(newCashRegister);
+		newCashRegister = null;
 	}
 	
 	public void addNewSeller(EmployeeInfo _employeeInfo, Stock _stock, CashRegister _cashRegister)
 	{
 		Seller newSeller = new Seller(_employeeInfo, _stock, _cashRegister);
 		sellers.add(newSeller);
+		newSeller = null;
 	}
 	
 	public void addNewAdministrator(EmployeeInfo _employeeInfo, Stock _stock)
 	{
 		Administrator newAdministrator = new Administrator(_employeeInfo, _stock);
 		administrators.add(newAdministrator);
+		newAdministrator = null;
 	}
 	
 	public ArrayList<CashRegister> getCashRegisters()
@@ -45,7 +48,7 @@ public class Store {
 		return administrators;
 	}
 	
-	public ArrayList<Seller> getSeller()
+	public ArrayList<Seller> getSellers()
 	{
 		return sellers;
 	}

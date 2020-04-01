@@ -35,8 +35,8 @@ public class MainClass {
 		
 		stock.print();
 		
-		Seller Vanzator1 = magazin.getSeller().get(0);
-		Seller Vanzator2 = magazin.getSeller().get(1);
+		Seller Vanzator1 = magazin.getSellers().get(0);
+		Seller Vanzator2 = magazin.getSellers().get(1);
 		
 		Vanzator1.sellProduct(coffee, 2);
 		Vanzator2.sellProduct(sugar, 5);
