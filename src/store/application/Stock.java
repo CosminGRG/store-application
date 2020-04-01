@@ -5,11 +5,6 @@ import java.util.ArrayList;
 
 public class Stock {
 	
-	/*
-	 * StockItem already has a quantity parameter. HashMap is a bad choice.
-	 * TODO: Delete comments?
-	 */
-	//HashMap<StockItem, Integer> stockItems = new HashMap<StockItem, Integer>();
 	private ArrayList<StockItem> stockItems = new ArrayList<StockItem>();
 	
 	private int defaultOptionalRemovableQuantity = 0;
