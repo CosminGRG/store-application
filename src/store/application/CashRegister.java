@@ -12,7 +12,7 @@ public class CashRegister {
 	private String fiscalIdentifier;
 	
 	private boolean saleIsOngoing = false;
-	private Receipt newReceipt = new Receipt();
+	private Receipt newReceipt = null;
 	
 	public CashRegister(String _storeName, String _fiscalIdentifier)
 	{
@@ -31,6 +31,7 @@ public class CashRegister {
 		{
 			receiptNumber++;
 			currentReceiptNumber = receiptNumber;
+			newReceipt = new Receipt();
 			newReceipt.setReceiptNumber(currentReceiptNumber);
 			saleIsOngoing = true;
 		}
@@ -73,6 +74,7 @@ public class CashRegister {
 		receipts.add(newReceipt);
 		//receipts.get(currentReceiptNumber).print();
 		//System.out.println(receipts.get(currentReceiptNumber).getTotal());
+		newReceipt = null;
 		//newReceipt.getReceiptItems().clear();
 		saleIsOngoing = false;
 	}
