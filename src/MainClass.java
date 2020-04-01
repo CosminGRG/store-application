@@ -50,10 +50,25 @@ public class MainClass {
 		admin.removeSingleProductFromStock(spoon, 0);
 		admin.removeMultipleProductFromStock(productsToRemove);
 		
-		System.out.println("-");
+		System.out.println("STOCK DUPA ADMIN.REMOVE SI SELL");
 		stock.print();
 		
-		System.out.println("-");
+		System.out.println("FINALIZE SELL AKA. BON:");
+		
+		Vanzator1.getCashRegister().finalizeSell();
+		
+		System.out.println("-=========");
+		
+		Vanzator1.returnProduct(coffee, 1, 0);
+		stock.print();
+		
+		System.out.println("-==================");
+		
+		Vanzator1.sellProduct(cup, 1);
+		Vanzator2.sellProduct(milk, 1);
+		
+		Vanzator1.getCashRegister().finalizeSell();
+		
 		stock.print();
 	}
 

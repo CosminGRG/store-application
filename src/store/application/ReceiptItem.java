@@ -20,6 +20,11 @@ public class ReceiptItem {
 		total = _total;
 	}
 	
+	public void setQuantity(int _quantity)
+	{
+		quantity = _quantity;
+	}
+	
 	public int getQuantity()
 	{
 		return quantity;

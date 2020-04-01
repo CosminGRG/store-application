@@ -3,10 +3,14 @@ package store.application;
 import java.util.HashMap;
 
 public class Seller {
-	@SuppressWarnings("unused")
 	private EmployeeInfo employeeInfo = null;
 	private Stock stock = null;
 	private CashRegister cashRegister = null;
+	
+	public CashRegister getCashRegister()
+	{
+		return cashRegister;
+	}
 	
 	public Seller(EmployeeInfo _employeeInfo, Stock _stock, CashRegister _cashRegister)
 	{
@@ -27,52 +31,30 @@ public class Seller {
 		return false;
 	}
 
-	public void returnProduct(Product _product, int _quantity)
+	public boolean returnProduct(Product _product, int _quantity, int _receiptNumber)
 	{
-		/*
-		 * TODO: Check receipt for product and quantity;
-		 */
-		StockItem _stockItem = new StockItem(_product, _quantity);
-		stock.add(_stockItem);
-	}
-	
-	//A hashmap containing Products and quantities?
-	public void returnMultipleProducts(HashMap<Product, Integer> _productsToReturn)
-	{
-		for (Product key : _productsToReturn.keySet())
+		Receipt returnReceipt = cashRegister.getReceipts().get(_receiptNumber);
+		for (ReceiptItem key : returnReceipt.getReceiptItems())
 		{
-			StockItem _stockItem = new StockItem(key, _productsToReturn.get(key));
-			stock.add(_stockItem);
+			if (key.getProductName().equalsIgnoreCase(_product.getName()))
+			{
+				if (key.getQuantity() >= _quantity)
+				{
+					StockItem stockItem = new StockItem(_product, _quantity);
+					stock.add(stockItem);
+					return true;
+				}
+				break;
+			}
 		}
+		return false;
 	}
 	
-	/*
-	 * TODO: Implement receipt and cash register;
-	 * When you sell something you make a new receipt and add the products to it same happens for multiple sales;
-	 */
 	public void sellProduct(Product _product, int _quantity)
 	{
 		StockItem _stockItem = new StockItem(_product, _quantity);
 		stock.remove(_stockItem, _quantity);
 		cashRegister.startNewSell(_product, _quantity);
-		/*
-		 for (StockItem key : stock.getStockItems())
-		{
-			if (_product.getName().equalsIgnoreCase(key.getProduct().getName()))
-			{
-				cashRegister.startNewSell(_product, _quantity);
-				if (key.getQuantity() > _quantity)
-				{
-					key.setQuantity(key.getQuantity() - _quantity);
-				}
-				else
-				{
-					stock.getStockItems().remove(key);
-				}
-				break;
-			}
-		}
-		*/
 	}
 
 	public void sellMultipleProducts(HashMap<Product, Integer> _productsToSell)
@@ -81,25 +63,7 @@ public class Seller {
 		{
 			StockItem _stockItem = new StockItem(_productKey, _productsToSell.get(_productKey));
 			stock.remove(_stockItem, _productsToSell.get(_productKey));
-			/*
-			for(StockItem _stockKey : stock.getStockItems())
-			{
-				if (_productKey.getName().equalsIgnoreCase(_stockKey.getProduct().getName()))
-				{
-					
-					
-					if (_stockKey.getQuantity() > _productsToSell.get(_productKey))
-					{
-						_stockKey.setQuantity(_stockKey.getQuantity() - _productsToSell.get(_productKey));
-					}
-					else
-					{
-						stock.getStockItems().remove(_stockKey);
-					}
-					break;
-				}
-			}
-			*/
+			cashRegister.startNewSell(_productKey, _productsToSell.get(_productKey));
 		}
 	}
 }
