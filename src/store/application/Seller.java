@@ -3,6 +3,7 @@ package store.application;
 import java.util.HashMap;
 
 public class Seller {
+	@SuppressWarnings("unused")
 	private EmployeeInfo employeeInfo = null;
 	private Stock stock = null;
 	private CashRegister cashRegister = null;
@@ -12,6 +13,11 @@ public class Seller {
 		return cashRegister;
 	}
 	
+	public void setCashRegister(CashRegister _cashRegister)
+	{
+		cashRegister = _cashRegister;
+	}
+	
 	public Seller(EmployeeInfo _employeeInfo, Stock _stock, CashRegister _cashRegister)
 	{
 		employeeInfo = _employeeInfo;
@@ -19,16 +25,16 @@ public class Seller {
 		cashRegister = _cashRegister;
 	}
 	
-	public boolean checkProductStock(Product _product)
+	public StockItem checkProductStock(String _productName)
 	{
 		for (StockItem key : stock.getStockItems())
 		{
-			if (_product.getName().equalsIgnoreCase(key.getProduct().getName()))
+			if (_productName.equalsIgnoreCase(key.getProduct().getName()))
 			{
-				return true;
+				return key;
 			}
 		}
-		return false;
+		return null;
 	}
 
 	public boolean returnProduct(Product _product, int _quantity, int _receiptNumber)
@@ -52,18 +58,52 @@ public class Seller {
 	
 	public void sellProduct(Product _product, int _quantity)
 	{
+		cashRegister.startNewSell();
 		StockItem _stockItem = new StockItem(_product, _quantity);
-		stock.remove(_stockItem, _quantity);
-		cashRegister.startNewSell(_product, _quantity);
+		for (StockItem key : stock.getStockItems())
+		{
+			if (key.getProduct().getName().equalsIgnoreCase(_product.getName()))
+			{
+				if (key.getQuantity() > _quantity)
+				{
+					stock.remove(_stockItem, _quantity);
+					cashRegister.registerNewProduct(_product, _quantity);
+				}
+			}
+		}
 	}
 
+	public boolean removeProductFromSell(Product _product, int _quantity)
+	{
+		boolean ok = cashRegister.removeProductFromSell(_product, _quantity);
+		if (ok)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
 	public void sellMultipleProducts(HashMap<Product, Integer> _productsToSell)
 	{
+		cashRegister.startNewSell();
 		for (Product _productKey : _productsToSell.keySet())
 		{
-			StockItem _stockItem = new StockItem(_productKey, _productsToSell.get(_productKey));
-			stock.remove(_stockItem, _productsToSell.get(_productKey));
-			cashRegister.startNewSell(_productKey, _productsToSell.get(_productKey));
+			for (StockItem key : stock.getStockItems())
+			{
+				if (key.getProduct().getName().equalsIgnoreCase(_productKey.getName()))
+				{
+					if (key.getQuantity() > _productsToSell.get(key))
+					{
+						StockItem _stockItem = new StockItem(_productKey, _productsToSell.get(_productKey));
+						stock.remove(_stockItem, _productsToSell.get(_productKey));
+						cashRegister.registerNewProduct(_productKey, _productsToSell.get(_productKey));
+					}
+				}
+			}
 		}
 	}
 }
