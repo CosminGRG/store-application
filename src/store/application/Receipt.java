@@ -18,6 +18,11 @@ public class Receipt {
 		return receiptItems;
 	}
 	
+	public int getReceiptINumber()
+	{
+		return receiptNumber;
+	}
+	
 	public BigDecimal calculateProductTotal(ReceiptItem _receiptItem)
 	{
 		_receiptItem.setTotal(_receiptItem.getPPUnit().multiply(new BigDecimal(_receiptItem.getQuantity())));
@@ -35,12 +40,5 @@ public class Receipt {
 	public BigDecimal getTotal()
 	{
 		return total;
-	}
-	
-	public void print()
-	{
-		for (int i = 0; i < receiptItems.size(); i++) {
-		      System.out.println(receiptItems.get(i).getProductName() + "------" + receiptItems.get(i).getQuantity());
-		    }
 	}
 }

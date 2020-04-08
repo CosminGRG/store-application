@@ -12,6 +12,8 @@ public class Product {
 	
 	public Product() { }
 	
+	public Product(String _name) { name = _name; } 
+	
 	public Product(String _name, HashMap<String, String> _characteristics, String _description, BigDecimal _price)
 	{
 		name = _name;

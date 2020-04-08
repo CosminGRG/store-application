@@ -8,7 +8,6 @@ public class CashRegister {
 	private ArrayList<Receipt> receipts = new ArrayList<Receipt>();
 	@SuppressWarnings("unused")
 	private String storeName;
-	@SuppressWarnings("unused")
 	private String fiscalIdentifier;
 	
 	private boolean saleIsOngoing = false;
@@ -25,7 +24,12 @@ public class CashRegister {
 		return receipts;
 	}
 	
-	public void startNewSell(Product _product, int _quantity)
+	public String getFiscalIdentifier()
+	{
+		return fiscalIdentifier;
+	}
+	
+	public void startNewSell()
 	{
 		if (saleIsOngoing == false)
 		{
@@ -35,11 +39,15 @@ public class CashRegister {
 			newReceipt.setReceiptNumber(currentReceiptNumber);
 			saleIsOngoing = true;
 		}
+	}
+	
+	public void registerNewProduct(Product _product, int _quantity)
+	{
 		ReceiptItem newReceiptItem = new ReceiptItem(_product.getName(), _product.getPrice(), _quantity);
 		newReceipt.getReceiptItems().add(newReceiptItem);
 	}
 	
-	public void removeProductFromSell(Product _product, int _quantity)
+	public boolean removeProductFromSell(Product _product, int _quantity)
 	{
 		if (saleIsOngoing)
 		{
@@ -62,20 +70,39 @@ public class CashRegister {
 					{
 						newReceipt.getReceiptItems().remove(key);
 					}
-					break;
+					return true;
 				}
 			}
 		}
+		return false;
+	}
+	
+	public Receipt getCurrentReceipt()
+	{
+		if (newReceipt != null)
+		{
+			return newReceipt;
+		}
+		return null;
+	}
+	
+	public int getCurrentReceiptNumber()
+	{
+		return receiptNumber;
+	}
+	
+	public boolean getSellState()
+	{
+		return saleIsOngoing;
 	}
 	
 	public void finalizeSell()
 	{
 		newReceipt.calculateTotal();
 		receipts.add(newReceipt);
-		//receipts.get(currentReceiptNumber).print();
-		//System.out.println(receipts.get(currentReceiptNumber).getTotal());
+
 		newReceipt = null;
-		//newReceipt.getReceiptItems().clear();
+
 		saleIsOngoing = false;
 	}
 }

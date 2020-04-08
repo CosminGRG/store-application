@@ -32,8 +32,9 @@ public class Stock {
 		}
 	}
 	
-	public void remove(StockItem _stockItem, int _quantity)
+	public boolean remove(StockItem _stockItem, int _quantity)
 	{
+		boolean ok = false;
 		for (StockItem key : stockItems)
 		{
 			if (key.getProduct().getName().equalsIgnoreCase(_stockItem.getProduct().getName()))
@@ -53,9 +54,11 @@ public class Stock {
 				{
 					stockItems.remove(key);
 				}
+				ok = true;
 				break;
 			}
 		}
+		return ok;
 	}
 	
 	public void remove(StockItem _stockItem)

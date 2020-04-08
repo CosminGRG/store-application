@@ -3,6 +3,8 @@ package store.application;
 import java.util.ArrayList;
 
 public class Administrator {
+	
+	@SuppressWarnings("unused")
 	private EmployeeInfo employeeInfo = null;
 	private Stock stock = null;
 	
